@@ -1,22 +1,23 @@
 from picamera import PiCamera
 from time import sleep
 
-print("photo_creation.py is starting")
+def photographer(photo_number):
+    print("photo_creation.py is starting")
 
-camera = PiCamera()
+    camera = PiCamera()
 
-# photo taking code beginning
+    # photo taking code beginning
 
-camera.start_preview()
+    camera.start_preview()
 
-# loop for capturing 42 photos at 10 sec intervals
+    # loop for capturing 42 photos at 10 sec intervals
 
-for i in range(42):
-    sleep(10)
-    camera.capture('image%s.jpg' % i)
+    sleep(5)
 
-camera.stop_preview()
+    camera.capture('image%s.jpg' % photo_number)
 
-# photo taking code end
+    camera.stop_preview()
 
-print("stopping photocreation.py")
+    # photo taking code end
+
+    print("stopping photocreation.py")
