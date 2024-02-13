@@ -79,8 +79,8 @@ def measure_speed(pic1, pic2):
         return speed
 
 
-    image_1 = 'image_0685.jpg' #imagename - !!change!!
-    image_2 = 'photo_0686.jpg' #imagename - !!change!!
+    image_1 = 'image%s.jpg' % pic1 #imagename - !!change!!
+    image_2 = 'image%s.jpg' % pic2 #imagename - !!change!!
 
 
     time_difference = get_time_difference(image_1, image_2) #calculate time difference between two photos
@@ -93,4 +93,4 @@ def measure_speed(pic1, pic2):
     speed = calculate_speed_in_kmps(average_feature_distance, 12648, time_difference)
     print(speed)
 
-measure_speed(None, None)
+#measure_speed(None, None)
