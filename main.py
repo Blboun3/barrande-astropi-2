@@ -16,8 +16,12 @@ photo_number = 0
 picforcomp_1 = None
 picforcomp_2 = None
 
-#average speed calculating
-average_speed = None
+#average velocity calculation
+average_velocity = None
+velocity = []
+numberofvelocities = None
+cycles = 0
+velocitysum = 0
 
 # variable debugging
 print(time_start)
@@ -53,9 +57,25 @@ while mamecas == True:
         break
 
 
-printer(average_speed)
+#calculating average speed
+
+# how many numbers does array have
+numberofvelocities = len(velocity)
+
+# adding all velocities together
+while cycles <= numberofvelocities:
+
+    velocitysum = velocitysum + velocity[cycles]
+    cycles = cycles + 1
+
+# deviding velocitysum by numberof velocities will result in final average velocity
+average_velocity = velocitysum / numberofvelocities
+
+
+# creates file 'report.txt' containing final resault
+printer(average_velocity)
 
 # konec
-print("program ukoncen")
+print("program ended /n report containing outcome of our measuring can be found in report.txt")
 
 

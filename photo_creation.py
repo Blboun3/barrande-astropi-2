@@ -12,7 +12,7 @@ def photographer(photo_number):
 
     # loop for capturing 42 photos at 10 sec intervals
 
-    sleep(5)
+    sleep(4)
 
     camera.capture('image%s.jpg' % photo_number)
 
