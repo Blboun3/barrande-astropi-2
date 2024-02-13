@@ -93,4 +93,7 @@ def measure_speed(pic1, pic2):
     speed = calculate_speed_in_kmps(average_feature_distance, 12648, time_difference)
     print(speed)
 
-#measure_speed(None, None)
+    return speed
+
+speed = measure_speed(None, None)
+print(speed)
