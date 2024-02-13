@@ -79,7 +79,7 @@ def measure_speed(pic1, pic2):
         return speed
 
 
-    image_1 = 'image%s.jpg' % pic1 #imagename - !!change!!
+    image_1 = 'image%s.jpg' % pic1 #imagename - !!change!!  !!!!!!!!!!!!!!!!!!! otestovat !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     image_2 = 'image%s.jpg' % pic2 #imagename - !!change!!
 
 
