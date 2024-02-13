@@ -1,5 +1,6 @@
 from photo_creation import photographer
 import time
+from txtfile_printer import printer
 
 #       start of the program
 
@@ -14,6 +15,9 @@ mamecas = True
 photo_number = 0
 picforcomp_1 = None
 picforcomp_2 = None
+
+#average speed calculating
+average_speed = None
 
 # variable debugging
 print(time_start)
@@ -48,6 +52,8 @@ while mamecas == True:
         mamecas = False
         break
 
+
+printer(average_speed)
 
 # konec
 print("program ukoncen")
