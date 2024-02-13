@@ -38,8 +38,6 @@ while mamecas == True:
     picforcomp_2 = photo_number
     measure_speed(picforcomp_1, picforcomp_2)
 
-    photo_number = photo_number + 1
-
 
 
 
