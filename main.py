@@ -1,6 +1,7 @@
 from photo_creation import photographer
 import time
 from txtfile_printer import printer
+import statistics
 
 #       start of the program
 
@@ -19,9 +20,9 @@ picforcomp_2 = None
 #average velocity calculation
 average_velocity = None
 velocity = []
-numberofvelocities = None
-cycles = 0
-velocitysum = 0
+velocity_median = None
+deviation_max = None # median + 10%
+deviation_min = None # median - 10%
 
 # variable debugging
 print(time_start)
@@ -59,17 +60,13 @@ while mamecas == True:
 
 #calculating average speed
 
-# how many numbers does array have
-numberofvelocities = len(velocity)
+velocity_median = statistics.median(velocity)
+print(velocity_median)
 
-# adding all velocities together
-while cycles <= numberofvelocities:
+deviation_max = velocity_median * 1.1
+deviation_min = velocity_median * 0.9
 
-    velocitysum = velocitysum + velocity[cycles]
-    cycles = cycles + 1
 
-# deviding velocitysum by numberof velocities will result in final average velocity
-average_velocity = velocitysum / numberofvelocities
 
 
 # creates file 'report.txt' containing final resault
