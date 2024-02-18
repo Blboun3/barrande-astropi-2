@@ -1,12 +1,12 @@
+#import libraries
 from exif import Image
 from datetime import datetime
 import cv2
 import math
 
-#import libraries
-def measure_speed(pic1, pic2):
+def measure_speed(pic1, pic2): #function measure speed
     
-    def get_time(image):
+    def get_time(image): 
         """Function to get time from EXIF data of image
 
         Args:
@@ -54,15 +54,15 @@ def measure_speed(pic1, pic2):
 
 
     def calculate_features(image_1_cv, image_2_cv, feature_number):
-        """_summary_
+        """Function to find the keypoints and descriptors for the two images
 
         Args:
-            image_1_cv (_type_): _description_
-            image_2_cv (_type_): _description_
-            feature_number (_type_): _description_
+            image_1_cv (str): path to first image
+            image_2_cv (str): path to second image
+            feature_number (int): maximum number of features you want to search for
 
         Returns:
-            _type_: _description_
+            keypoints and the descriptors of the keypoints
         """
         orb = cv2.ORB_create(nfeatures = feature_number)
         keypoints_1, descriptors_1 = orb.detectAndCompute(image_1_cv, None)
@@ -71,14 +71,14 @@ def measure_speed(pic1, pic2):
 
 
     def calculate_matches(descriptors_1, descriptors_2):
-        """_summary_
+        """ tries to find matches in the two sets of keypoints
 
         Args:
-            descriptors_1 (_type_): _description_
-            descriptors_2 (_type_): _description_
+            descriptors_1 (_type_): path to first descriptor
+            descriptors_2 (_type_): path to second descriptor
 
         Returns:
-            _type_: _description_
+            _type_: matches
         """
         brute_force = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
         matches = brute_force.match(descriptors_1, descriptors_2)
@@ -87,12 +87,12 @@ def measure_speed(pic1, pic2):
         
 
     def display_matches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches):
-        """_summary_
+        """matches are displayed on images
 
         Args:
-            image_1_cv (_type_): _description_
+            image_1_cv (_type_): path to first image
             keypoints_1 (_type_): _description_
-            image_2_cv (_type_): _description_
+            image_2_cv (_type_): path to second image
             keypoints_2 (_type_): _description_
             matches (_type_): _description_
         """
