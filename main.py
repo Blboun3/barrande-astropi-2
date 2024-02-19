@@ -80,11 +80,10 @@ if __name__ == "__main__":
         if(sleepTime < 0):
             sleepTime = 0
         logger.info(f'Sleeping for {sleepTime}; Loop ran for {time.time() - loop_start}')
-        i += 1
         time.sleep(sleepTime)
 
         #check if we have time
-        if time_start < time_end:
+        if time.time() < time_end:
             haveWeTime = True
         else:
             haveWeTime = False
@@ -100,21 +99,14 @@ if __name__ == "__main__":
 
     velocity_clip = np.clip(velocity, velocity_median * deviation_min, velocity_median * deviation_max)
 
-    print(velocity_clip)
+    logger.info(velocity_clip)
 
     average_velocity = np.mean(velocity_clip)
 
-    print(average_velocity)
+    logger.info(average_velocity)
 
     # creates file 'report.txt' containing final resault
-<<<<<<< HEAD
-
-
-    printer(average_velocity)
-=======
     printer(str(average_velocity)[:6])
->>>>>>> 9e9b08b63f041f3328aabd7475816a6d69f76e40
-
     camera.close()
     # End
     logger.info("Program ended /nReport containing outcome of our measuring can be found in report.txt")
