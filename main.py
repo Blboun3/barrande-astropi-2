@@ -3,6 +3,7 @@ from photo_creation import photographer
 import time
 from txtfile_printer import printer
 import statistics
+from picamera import PiCamera
 
 # variables for time keeping
 time_start = time.time()
@@ -28,6 +29,10 @@ velocity = []
 print(time_start)
 print(time_end)
 
+# start camera
+camera = PiCamera()
+camera.resolution(4056,3040)
+
 # main loop
 while haveWeTime == True:
     print("OK, we have time")
@@ -42,7 +47,7 @@ while haveWeTime == True:
 
     photo_number = photo_number + 1
 
-    photographer(photo_number)
+    photographer(photo_number, camera)
 
     # comparison between latest and previous photo
     picforcomp_1 = photo_number - 1 # previous photo
