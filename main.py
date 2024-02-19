@@ -67,15 +67,13 @@ if __name__ == "__main__":
 
         # 9 minutes runtime = 540 seconds
         # limited to 42 photos
-        # 540 seconds divided by 42 photos
-        """
-        # ~Average time per one cycle of this loop should be around 12 seconds~
-        # ~current time - loop start time = how long has the loop ran for~
-        # ~12 - that = how long until 12 seconds~
-        """
-        # Replaced by static 16 seconds, it took to long to take the photos
+        # 540 seconds divided by 42 photos  
+        # Average time per one cycle of this loop should be around 12 seconds
+        # current time - loop start time = how long has the loop ran for
+        # 12 - that = how long until 12 seconds
+        
 
-        sleepTime = 15 - (time.time() - loop_start)
+        sleepTime = 12 - (time.time() - loop_start)
         if(sleepTime < 0):
             sleepTime = 0
         logger.info(f'Sleeping for {sleepTime}; Loop ran for {time.time() - loop_start}')
