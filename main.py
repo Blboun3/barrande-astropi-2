@@ -6,6 +6,7 @@ if __name__ == "__main__":
     import statistics
     from logzero import logger, logfile
     from picamera import PiCamera
+    import numpy as np
 
     # set log file
     logfile("events.log")
@@ -101,7 +102,17 @@ if __name__ == "__main__":
     deviation_max = velocity_median * 1.1
     deviation_min = velocity_median * 0.9
 
+    velocity_clip = np.clip(velocity, velocity_median * deviation_min, velocity_median * deviation_max)
+
+    print(velocity_clip)
+
+    average_velocity = np.mean(velocity_clip)
+
+    print(average_velocity)
+
     # creates file 'report.txt' containing final resault
+
+
     printer(average_velocity)
 
     camera.close()
