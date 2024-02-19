@@ -171,6 +171,9 @@ def measure_speed(pic1, pic2): #function measure speed
         speed = distance / time_difference
         return speed
 
+    def calc_GSD():
+        height = 
+        return 12648
 
     time_difference = get_time_difference(pic1, pic2) #calculate time difference between two photos
     image_1_cv, image_2_cv = convert_to_cv(pic1, pic2) #create opencfv images objects
@@ -179,7 +182,7 @@ def measure_speed(pic1, pic2): #function measure speed
     #display_matches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches) #display matches
     coordinates_1, coordinates_2 = find_matching_coordinates(keypoints_1, keypoints_2, matches)
     average_feature_distance = calculate_mean_distance(coordinates_1, coordinates_2)
-    speed = calculate_speed_in_kmps(average_feature_distance, 12648, time_difference)
+    speed = calculate_speed_in_kmps(average_feature_distance, calc_GSD(), time_difference)
     
     return speed
 
