@@ -71,9 +71,10 @@ if __name__ == "__main__":
         # Average time per one cycle of this loop should be around 12 seconds
         # current time - loop start time = how long has the loop ran for
         # 12 - that = how long until 12 seconds
+        # Added 2 seconds for safety
         
 
-        sleepTime = 12 - (time.time() - loop_start)
+        sleepTime = 14 - (time.time() - loop_start)
         if(sleepTime < 0):
             sleepTime = 0
         logger.info(f'Sleeping for {sleepTime}; Loop ran for {time.time() - loop_start}')

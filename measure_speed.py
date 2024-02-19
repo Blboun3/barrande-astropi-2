@@ -31,7 +31,7 @@ def measure_speed(pic1, pic2): #function measure speed
                 time = datetime.strptime(time_str, '%Y:%m:%d %H:%M:%S')
             return time
         except Exception:
-            return int(image[5:image.find(".jpg")])*12 # if unable to load from EXIF data use image ID times targeted loop time
+            return int(image[5:image.find(".jpg")])*14 # if unable to load from EXIF data use image ID times targeted loop time
         
         
     def get_time_difference(image_1, image_2):

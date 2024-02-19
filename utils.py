@@ -21,12 +21,15 @@ def median(data):
 
     Standard function from statistics library
     """
-    data = sorted(data)
-    n = len(data)
-    if n == 0:
+    try:
+        data = sorted(data)
+        n = len(data)
+        if n == 0:
+            return None
+        if n % 2 == 1:
+            return data[n // 2]
+        else:
+            i = n // 2
+            return (data[i - 1] + data[i]) / 2
+    except Exception:
         return None
-    if n % 2 == 1:
-        return data[n // 2]
-    else:
-        i = n // 2
-        return (data[i - 1] + data[i]) / 2
