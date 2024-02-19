@@ -4,7 +4,11 @@ if __name__ == "__main__":
     import time
     from txtfile_printer import printer
     import statistics
+    from logzero import logger, logfile
     from picamera import PiCamera
+
+    # set log file
+    logfile("events.log")
 
     # variables for time keeping
     time_start = time.time()
@@ -28,56 +32,70 @@ if __name__ == "__main__":
     velocity = []
 
     # variable debugging
-    print(time_start)
-    print(time_end)
+    logger.info(f'Start time: {time_start}')
+    logger.info(f'Expected end time: {time_end}')
 
     # start camera
     camera = PiCamera()
     camera.resolution = (4056,3040)
 
+    i = 0
+
     # main loop
     while haveWeTime == True:
-        print("OK, we have time")
-
         loop_start = time.time()
+        logger.info(f'OK, we have time. Loop nr. {i} started at {loop_start}')
+
 
         # !!! 1st photo name image0.jpg
         if photo_number == 0:
+            logger.info("Photo_creation.py is starting")
             photographer(photo_number, camera)
+            logger.info("Stopping photo_creation.py")
         else:
             pass
 
         photo_number = photo_number + 1
+        logger.info("Photo_creation.py is starting")
         photographer(photo_number, camera)
+        logger.info("Stopping photo_creation.py")
 
         # comparison between latest and previous photo
         picforcomp_1 = photo_number - 1 # previous photo
         picforcomp_2 = photo_number # current photo
-        velocity.append(measure_speed(f'image{picforcomp_1}.jpg', f'image{picforcomp_2}.jpg'))
+        currentSpeed = measure_speed(f'image{picforcomp_1}.jpg', f'image{picforcomp_2}.jpg')
+        logger.info(f'Measured speed: {currentSpeed}')
+        velocity.append(currentSpeed)
 
         # 9 minutes runtime = 540 seconds
         # limited to 42 photos
-        # 540 seconds divided by 42 photos  
-        # Average time per one cycle of this loop should be around 12 seconds
-        # current time - loop start time = how long has the loop ran for
-        # 12 - that = how long until 12 seconds
+        # 540 seconds divided by 42 photos
+        """
+        # ~Average time per one cycle of this loop should be around 12 seconds~
+        # ~current time - loop start time = how long has the loop ran for~
+        # ~12 - that = how long until 12 seconds~
+        """
+        # Replaced by static 16 seconds, it took to long to take the photos
 
-        sleepTime = 12 - (time.time() - loop_start)
+        sleepTime = 15 - (time.time() - loop_start)
         if(sleepTime < 0):
             sleepTime = 0
-
+        logger.info(f'Sleeping for {sleepTime}; Loop ran for {time.time() - loop_start}')
+        i += 1
         time.sleep(sleepTime)
 
         #check if we have time
-        if time_start < time_end:
+        if time.time() < time_end:
             haveWeTime = True
         else:
+            logger.info("Time run out, exiting main loop")
             haveWeTime = False
             break
 
     #calculating average speed
-    velocity_median = statistics.median(velocity)
-    print(velocity_median)
+    logger.info(f'Measured speeds array {velocity}')
+    velocity_median = str(statistics.median(velocity))[:6]
+    logger.info(f'Calculated average speed {velocity_median}')
 
     deviation_max = velocity_median * 1.1
     deviation_min = velocity_median * 0.9
@@ -85,5 +103,6 @@ if __name__ == "__main__":
     # creates file 'report.txt' containing final resault
     printer(average_velocity)
 
+    camera.close()
     # End
-    print("program ended /nReport containing outcome of our measuring can be found in report.txt")
+    logger.info("Program ended /nReport containing outcome of our measuring can be found in report.txt")

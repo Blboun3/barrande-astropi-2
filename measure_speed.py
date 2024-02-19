@@ -24,11 +24,14 @@ def measure_speed(pic1, pic2): #function measure speed
         Returns:
             datetime: datetime of when the image was taken
         """
-        with open(image, 'rb') as image_file:
-            img = Image(image_file)
-            time_str = img.get("datetime_original")
-            time = datetime.strptime(time_str, '%Y:%m:%d %H:%M:%S')
-        return time
+        try:
+            with open(image, 'rb') as image_file:
+                img = Image(image_file)
+                time_str = img.get("datetime_original")
+                time = datetime.strptime(time_str, '%Y:%m:%d %H:%M:%S')
+            return time
+        except Exception:
+            return int(image[5:image.find(".jpg")])*16 # if unable to load from EXIF data use image ID times targeted loop time
         
         
     def get_time_difference(image_1, image_2):
@@ -177,6 +180,8 @@ def measure_speed(pic1, pic2): #function measure speed
     time_difference = get_time_difference(pic1, pic2) #calculate time difference between two photos
     image_1_cv, image_2_cv = convert_to_cv(pic1, pic2) #create opencfv images objects
     keypoints_1, keypoints_2, descriptors_1, descriptors_2 = calculate_features(image_1_cv, image_2_cv, 1000) #get keypoints and descriptors
+    if not (keypoints_1, keypoints_2, descriptors_1, descriptors_2):
+        return None
     matches = calculate_matches(descriptors_1, descriptors_2) #match descriptors
     #display_matches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches) #display matches
     coordinates_1, coordinates_2 = find_matching_coordinates(keypoints_1, keypoints_2, matches)
