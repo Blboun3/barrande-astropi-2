@@ -22,6 +22,7 @@ def median(data):
     Standard function from statistics library
     """
     try:
+        data = [i for i in data if i is not None]
         data = sorted(data)
         n = len(data)
         if n == 0:
