@@ -8,11 +8,11 @@ def photographer(photo_number, camera):
     """
     # photo taking code beginning
 
-    #camera.start_preview()
+    camera.start_preview()
     # Wait for 4 seconds
     # For camera to properly focus/adjust to light etc.
-    #sleep(4)
+    sleep(1)
     camera.capture('image%s.jpg' % photo_number)
 
-    #camera.stop_preview()
+    camera.stop_preview()
     # photo taking code end
