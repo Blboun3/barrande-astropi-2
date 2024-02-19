@@ -1,12 +1,27 @@
+def median(data):
+    """Return the median (middle value) of numeric data.
+
+    When the number of data points is odd, return the middle data point.
+    When the number of data points is even, the median is interpolated by
+    taking the average of the two middle values:
+    """
+    data = sorted(data)
+    n = len(data)
+    if n == 0:
+        raise StatisticsError("no median for empty data")
+    if n % 2 == 1:
+        return data[n // 2]
+    else:
+        i = n // 2
+        return (data[i - 1] + data[i]) / 2
+
 if __name__ == "__main__":
     from measure_speed import measure_speed
     from photo_creation import photographer
     import time
     from txtfile_printer import printer
-    import statistics
     from logzero import logger, logfile
     from picamera import PiCamera
-    import numpy as np
 
     # set log file
     logfile("events.log")
@@ -91,22 +106,11 @@ if __name__ == "__main__":
 
     #calculating average speed
     logger.info(f'Measured speeds array {velocity}')
-    velocity_median = statistics.median(velocity)
-    logger.info(f'Calculated average speed {velocity_median}')
-
-    deviation_max = velocity_median * 1.1
-    deviation_min = velocity_median * 0.9
-
-    velocity_clip = np.clip(velocity, velocity_median * deviation_min, velocity_median * deviation_max)
-
-    logger.info(velocity_clip)
-
-    average_velocity = np.mean(velocity_clip)
-
-    logger.info(average_velocity)
+    velocity_median = median(velocity)
 
     # creates file 'report.txt' containing final resault
-    printer(str(average_velocity)[:6])
+    logger.info(f'Calculated average speed {velocity_median}')
+    printer(str(velocity_median)[:6])
     camera.close()
     # End
     logger.info("Program ended /nReport containing outcome of our measuring can be found in report.txt")
