@@ -97,4 +97,4 @@ if __name__ == "__main__":
     logger.info(f'Calculated average speed {velocity_median}')
     printer(str(velocity_median)[:6])
     # End
-    logger.info("Program ended /nReport containing outcome of our measuring can be found in report.txt")
+    logger.info("Program ended \nReport containing outcome of our measuring can be found in report.txt")
