@@ -95,14 +95,14 @@ if __name__ == "__main__":
 
     #calculating average speed
     logger.info(f'Measured speeds array {velocity}')
-    velocity_median = str(statistics.median(velocity))[:6]
+    velocity_median = statistics.median(velocity)
     logger.info(f'Calculated average speed {velocity_median}')
 
     deviation_max = velocity_median * 1.1
     deviation_min = velocity_median * 0.9
 
     # creates file 'report.txt' containing final resault
-    printer(average_velocity)
+    printer(str(average_velocity)[:6])
 
     camera.close()
     # End
