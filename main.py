@@ -40,14 +40,10 @@ if __name__ == "__main__":
     camera = PiCamera()
     camera.resolution = (4056,3040)
 
-    i = 0
-
     # main loop
     while WeHaveTime == True:
-        print("OK, we have time")
-
         loop_start = time.time()
-        logger.info(f'OK, we have time. Loop nr. {i} started at {loop_start}')
+        logger.info(f'OK, we have time. Loop nr. {photo_number} started at {loop_start}')
 
 
         # !!! 1st photo name image0.jpg
