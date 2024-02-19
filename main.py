@@ -15,7 +15,7 @@ if __name__ == "__main__":
     time_end = (time.time() + 540)
 
     # true while we have time (i.e. runtime is less than 540 seconds (= 9 minutes))
-    haveWeTime = True
+    WeHaveTime = True
 
     # file name numbering
     photo_number = 0
@@ -42,7 +42,9 @@ if __name__ == "__main__":
     i = 0
 
     # main loop
-    while haveWeTime == True:
+    while WeHaveTime == True:
+        print("OK, we have time")
+
         loop_start = time.time()
         logger.info(f'OK, we have time. Loop nr. {i} started at {loop_start}')
 
@@ -85,10 +87,9 @@ if __name__ == "__main__":
         time.sleep(sleepTime)
 
         #check if we have time
-        if time.time() < time_end:
+        if time_start < time_end:
             haveWeTime = True
         else:
-            logger.info("Time run out, exiting main loop")
             haveWeTime = False
             break
 
