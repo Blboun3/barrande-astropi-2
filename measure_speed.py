@@ -5,6 +5,15 @@ import cv2
 import math
 
 def measure_speed(pic1, pic2): #function measure speed
+    """Function to measure speed of the ISS using to pictures
+
+    Args:
+        pic1 (str): path to image1
+        pic2 (str): path to image2
+
+    Returns:
+        speed (number): speed of ISS
+    """
     
     def get_time(image): 
         """Function to get time from EXIF data of image
@@ -57,8 +66,8 @@ def measure_speed(pic1, pic2): #function measure speed
         """Function to find the keypoints and descriptors for the two images
 
         Args:
-            image_1_cv (str): path to first image
-            image_2_cv (str): path to second image
+            image_1_cv (cv.image): first image loaded into openCV
+            image_2_cv (cv.image): second image loaded into openCV
             feature_number (int): maximum number of features you want to search for
 
         Returns:
@@ -74,45 +83,46 @@ def measure_speed(pic1, pic2): #function measure speed
         """ tries to find matches in the two sets of keypoints
 
         Args:
-            descriptors_1 (_type_): path to first descriptor
-            descriptors_2 (_type_): path to second descriptor
+            descriptors_1 (any): descriptors on the first image
+            descriptors_2 (any): descriptors on the second image
 
         Returns:
-            _type_: matches
+            any: matches
         """
         brute_force = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
         matches = brute_force.match(descriptors_1, descriptors_2)
         matches = sorted(matches, key=lambda x: x.distance)
         return matches
         
-
+    """
     def display_matches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches):
-        """matches are displayed on images
+        matches are displayed on images
 
         Args:
-            image_1_cv (_type_): path to first image
-            keypoints_1 (_type_): _description_
-            image_2_cv (_type_): path to second image
-            keypoints_2 (_type_): _description_
-            matches (_type_): _description_
-        """
+            image_1_cv (cv.image): first image loaded into openCV
+            keypoints_1 (any): keypoints for the first image
+            image_2_cv (cv.image): second image loaded into openCV
+            keypoints_2 (any): keypoints for the second image
+            matches (array): array of matching keypoints
+        
         match_img = cv2.drawMatches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches[:100], None)
         resize = cv2.resize(match_img, (1600,600), interpolation = cv2.INTER_AREA)
         cv2.imshow('matches', resize)
         cv2.waitKey(0)
         cv2.destroyWindow('matches')
+    """
         
         
     def find_matching_coordinates(keypoints_1, keypoints_2, matches):
-        """_summary_
+        """Function to "link" coordinates of points in one image to the other image (index in array for 1 will be same in array for 2)
 
         Args:
-            keypoints_1 (_type_): _description_
-            keypoints_2 (_type_): _description_
-            matches (_type_): _description_
+            keypoints_1 (array): keypoints for the first image
+            keypoints_2 (array): keypoint for the second image
+            matches (array): matching keypoints
 
         Returns:
-            _type_: _description_
+            array,array: keypoints in the first and keypoints in the second image sorted to be matching
         """
         coordinates_1 = []
         coordinates_2 = []
@@ -127,14 +137,14 @@ def measure_speed(pic1, pic2): #function measure speed
 
 
     def calculate_mean_distance(coordinates_1, coordinates_2):
-        """_summary_
+        """Function to calculate distances between matching keypoints
 
         Args:
-            coordinates_1 (_type_): _description_
-            coordinates_2 (_type_): _description_
+            coordinates_1 (array): keypoints in the first image (coords)
+            coordinates_2 (array): keypoint in the second image (coors)
 
         Returns:
-            _type_: _description_
+            number: mean distance between same point in first and in the second image
         """
         all_distances = 0
         merged_coordinates = list(zip(coordinates_1, coordinates_2))
@@ -147,15 +157,15 @@ def measure_speed(pic1, pic2): #function measure speed
 
 
     def calculate_speed_in_kmps(feature_distance, GSD, time_difference):
-        """_summary_
+        """ Function to calculate speed in kilometers per second base on the average distance of keypoints and time difference
 
         Args:
-            feature_distance (_type_): _description_
-            GSD (_type_): _description_
-            time_difference (_type_): _description_
+            feature_distance (number): calculated using `calculate_mean_distace` 
+            GSD (number): 
+            time_difference (number): in seconds; how long betweeen the photos
 
         Returns:
-            _type_: _description_
+            number: ISS's speed in kmps
         """
         distance = feature_distance * GSD / 100000
         speed = distance / time_difference
@@ -166,12 +176,12 @@ def measure_speed(pic1, pic2): #function measure speed
     image_1_cv, image_2_cv = convert_to_cv(pic1, pic2) #create opencfv images objects
     keypoints_1, keypoints_2, descriptors_1, descriptors_2 = calculate_features(image_1_cv, image_2_cv, 1000) #get keypoints and descriptors
     matches = calculate_matches(descriptors_1, descriptors_2) #match descriptors
-    display_matches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches) #display matches
+    #display_matches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches) #display matches
     coordinates_1, coordinates_2 = find_matching_coordinates(keypoints_1, keypoints_2, matches)
     average_feature_distance = calculate_mean_distance(coordinates_1, coordinates_2)
     speed = calculate_speed_in_kmps(average_feature_distance, 12648, time_difference)
     
     return speed
 
-speed = measure_speed("image686.jpg", "image687.jpg")
-print(speed)
+#speed = measure_speed("image686.jpg", "image687.jpg")
+#print(speed)

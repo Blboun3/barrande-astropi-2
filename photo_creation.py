@@ -2,10 +2,10 @@ from picamera import PiCamera
 from time import sleep
 
 def photographer(photo_number):
-    """_summary_
+    """Function to take and save photo
 
     Args:
-        photo_number (_type_): _description_
+        photo_number (number): sequential ID of the photo, used for naming the saved file
     """
     print("photo_creation.py is starting")
 
