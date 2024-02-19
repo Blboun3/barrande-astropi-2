@@ -11,7 +11,7 @@ if __name__ == "__main__":
     time_end = (time.time() + 540)
 
     # true while we have time (i.e. runtime is less than 540 seconds (= 9 minutes))
-    haveWeTime = True
+    WeHaveTime = True
 
     # file name numbering
     photo_number = 0
@@ -36,7 +36,7 @@ if __name__ == "__main__":
     camera.resolution = (4056,3040)
 
     # main loop
-    while haveWeTime == True:
+    while WeHaveTime == True:
         print("OK, we have time")
 
         loop_start = time.time()
@@ -70,9 +70,9 @@ if __name__ == "__main__":
 
         #check if we have time
         if time_start < time_end:
-            haveWeTime = True
+            WeHaveTime = True
         else:
-            haveWeTime = False
+            WeHaveTime = False
             break
 
     #calculating average speed
