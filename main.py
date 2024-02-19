@@ -1,28 +1,12 @@
-def median(data):
-    """Return the median (middle value) of numeric data.
+from measure_speed import measure_speed
+from photo_creation import photographer
+import time
+from utils import printer, median
+from logzero import logger, logfile
+from picamera import PiCamera
 
-    When the number of data points is odd, return the middle data point.
-    When the number of data points is even, the median is interpolated by
-    taking the average of the two middle values:
-    """
-    data = sorted(data)
-    n = len(data)
-    if n == 0:
-        raise StatisticsError("no median for empty data")
-    if n % 2 == 1:
-        return data[n // 2]
-    else:
-        i = n // 2
-        return (data[i - 1] + data[i]) / 2
 
 if __name__ == "__main__":
-    from measure_speed import measure_speed
-    from photo_creation import photographer
-    import time
-    from txtfile_printer import printer
-    from logzero import logger, logfile
-    from picamera import PiCamera
-
     # set log file
     logfile("events.log")
 
@@ -104,6 +88,7 @@ if __name__ == "__main__":
             haveWeTime = False
             break
 
+    camera.close()
     #calculating average speed
     logger.info(f'Measured speeds array {velocity}')
     velocity_median = median(velocity)
@@ -111,6 +96,5 @@ if __name__ == "__main__":
     # creates file 'report.txt' containing final resault
     logger.info(f'Calculated average speed {velocity_median}')
     printer(str(velocity_median)[:6])
-    camera.close()
     # End
     logger.info("Program ended /nReport containing outcome of our measuring can be found in report.txt")
