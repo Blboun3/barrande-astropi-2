@@ -7,10 +7,9 @@ def printer(average_speed):
         average_speed (float): calculated from 'main.py'
     """
     try:    
-        report = open('report.txt', 'w')
-        report.write("Average speed during our measuring was " + str(average_speed) + "kms^-1")
-        report.close()
+        with open("report.txt", "w", buffering=1) as f:
+            f.write("Average speed during our measuring was " + str(average_speed) + "kms^-1")
+            f.close()
     except Exception as e:
         print(f'Unable to write to file due to ${e} error')
-
 
