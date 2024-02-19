@@ -171,8 +171,7 @@ def measure_speed(pic1, pic2): #function measure speed
         speed = distance / time_difference
         return speed
 
-    def calc_GSD():
-        height = 
+    def calc_GSD(): 
         return 12648
 
     time_difference = get_time_difference(pic1, pic2) #calculate time difference between two photos

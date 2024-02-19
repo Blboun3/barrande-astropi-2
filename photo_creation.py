@@ -13,9 +13,9 @@ def photographer(photo_number, camera):
     camera.start_preview()
     # Wait for 4 seconds
     # For camera to properly focus/adjust to light etc.
-    sleep(4)
+    #sleep(4)
     camera.capture('image%s.jpg' % photo_number)
 
     camera.stop_preview()
     # photo taking code end
-    print("stopping photocreation.py")
+    print("stopping photo_creation.py")
